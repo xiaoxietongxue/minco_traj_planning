@@ -1,0 +1,10 @@
+build/
+slprj/
+*.slxc
+*.autosave
+*.asv
+*.mex*
+codegen/
+*_grt_rtw/
+*_ert_rtw/
+.DS_Store

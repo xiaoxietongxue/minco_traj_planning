@@ -1,0 +1,19 @@
+function build_minco_mex()
+%BUILD_MINCO_MEX 编译 minco_mex，用于在 MATLAB 中离线调用 MINCO（教程第 3 章实验）。
+
+root = fileparts(fileparts(mfilename("fullpath")));
+addpath(fullfile(root, "scripts"));
+outDir = fullfile(root, "build");
+if ~isfolder(outDir)
+    mkdir(outDir);
+end
+mex("-outdir", outDir, ...
+    "-I" + fullfile(root, "minco"), ...
+    "-I" + fullfile(root, "third_party", "GCOPTER", "gcopter", "include"), ...
+    "-I" + find_eigen(root), ...
+    "CXXFLAGS=$CXXFLAGS -std=c++14", ...
+    fullfile(root, "tools", "minco_mex.cpp"), ...
+    fullfile(root, "minco", "minco_c_api.cpp"));
+addpath(outDir);
+fprintf("minco_mex 已编译到 %s\n", outDir);
+end
